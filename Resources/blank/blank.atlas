@@ -1,0 +1,27 @@
+
+blank.png
+size: 138,56
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body
+  rotate: true
+  xy: 2, 2
+  size: 52, 60
+  orig: 54, 62
+  offset: 1, 1
+  index: -1
+Head
+  rotate: false
+  xy: 64, 2
+  size: 52, 52
+  orig: 54, 54
+  offset: 1, 1
+  index: -1
+Limb
+  rotate: false
+  xy: 118, 10
+  size: 18, 44
+  orig: 20, 46
+  offset: 1, 1
+  index: -1

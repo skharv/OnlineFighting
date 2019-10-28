@@ -1,0 +1,10 @@
+﻿  Character.cpp
+  Engine.cpp
+  Main.cpp
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\Main.cpp(11,15): warning C4101: 'e': unreferenced local variable
+Character.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall spine::SFMLTextureLoader::unload(void *)" (?unload@SFMLTextureLoader@spine@@UAEXPAX@Z)
+Character.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall spine::SFMLTextureLoader::load(class spine::AtlasPage &,class spine::String const &)" (?load@SFMLTextureLoader@spine@@UAEXAAVAtlasPage@2@ABVString@2@@Z)
+Character.obj : error LNK2001: unresolved external symbol "public: static void __cdecl spine::SpineObject::operator delete(void *)" (??3SpineObject@spine@@SAXPAX@Z)
+Character.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall spine::TextureLoader::~TextureLoader(void)" (??1TextureLoader@spine@@UAE@XZ)
+Character.obj : error LNK2001: unresolved external symbol "public: __thiscall spine::TextureLoader::TextureLoader(void)" (??0TextureLoader@spine@@QAE@XZ)
+D:\Simon\Documents\GitHub\OnlineFighting\Release\OnlineFighting.exe : fatal error LNK1120: 5 unresolved externals
