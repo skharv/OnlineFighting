@@ -79,11 +79,11 @@ int wmain(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	try
 	{
-		engine->Go();
+		engine->Go(local_port, num_players, players, num_spectators);
 	}
 	catch (char* e)
 	{
-		//MessageBoxA(NULL, e, "Exception Occurred", MB_OK | MB_ICONERROR);
+		MessageBoxA(NULL, e, "Engine didn't start! Maybe check the spark plugs?", MB_OK | MB_ICONERROR);
 	}
 
 	return 0;

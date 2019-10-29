@@ -143,14 +143,15 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="spine-sfml.cpp" />
+    <ClCompile Include="NonGameState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="include\ggponet.h" />
-    <ClInclude Include="spine-sfml.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="NonGameState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
