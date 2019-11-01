@@ -21,9 +21,7 @@ int wmain(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	if (__argc < 3)
 	{
-		std::cout << "Invalid command arguments!" << std::endl;
-		std::cout << "Syntax: vectorwar.exe <local port> <num players> ('local' | <remote ip>:<remote port>)" << std::endl;
-		std::cout << "That means it's first your local port and the number of players in the game. Then P1 (who is local) and then P2 who has an IP (unless you are P2 in which case P2 is local)" << std::endl;
+		MessageBoxA(NULL, "Syntax Error!", "Invalid command arguments!", MB_OK | MB_ICONERROR);
 		return 1;
 	}
 
@@ -32,8 +30,7 @@ int wmain(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	if (num_players < 0 || __argc < offset + num_players)
 	{
-		std::cout << "Invalid command arguments!" << std::endl;
-		std::cout << "Something went wrong... But I don't know what it is. Did you fuck up the command line?" << std::endl;
+		MessageBoxA(NULL, "Syntax Error!", "Invalid command arguments!", MB_OK | MB_ICONERROR);
 		return 1;
 	}
 
@@ -56,7 +53,7 @@ int wmain(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		players[i].type = GGPO_PLAYERTYPE_REMOTE;
 		if (swscanf(arg, L"%[^:]:%hd", wide_ip_buffer, &players[i].u.remote.port) != 2)
 		{
-			std::cout << "Something went wrong... But I don't know what it is. Maybe it's you?" << std::endl;
+			MessageBoxA(NULL, "Syntax Error!", "Invalid command arguments!", MB_OK | MB_ICONERROR);
 			return 1;
 		}
 		wcstombs(players[i].u.remote.ip_address, wide_ip_buffer, sizeof(players[i].u.remote.ip_address));
@@ -67,7 +64,7 @@ int wmain(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		players[i].type = GGPO_PLAYERTYPE_SPECTATOR;
 		if (swscanf(__wargv[offset++], L"%[^:]:%hd", wide_ip_buffer, &players[i].u.remote.port) != 2)
 		{
-			std::cout << "Something went wrong... I don't know what it is, but it's probably someone else... Right?" << std::endl;
+			MessageBoxA(NULL, "Syntax Error!", "Invalid command arguments!", MB_OK | MB_ICONERROR);
 			return 1;
 		}
 		wcstombs(players[i].u.remote.ip_address, wide_ip_buffer, sizeof(players[i].u.remote.ip_address));

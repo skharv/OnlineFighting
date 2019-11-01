@@ -10,27 +10,27 @@
 #include "NonGameState.h"
 
 #define FRAME_DELAY 3
+#define FRAMERATE 60
 
+void AdvanceFrame(int inputs[], int disconnect_flags);
+int ReadInputs(sf::RenderWindow* Window);
 
 class Engine
 {
 private:
-	int _localPort, _numberOfPlayers, _numberOfSpectators;
-
-	GGPOPlayer* _players;
-
 	sf::RenderWindow* _window;
-	Character* _character;
+	Character* _characters[MAX_PLAYERS];
 
 	sf::Clock deltaClock;
 
-	bool Init();
+	bool Init(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int NumberOfSpectators);
 	void MainLoop();
 	void ProcessInput();
-	void RenderFrame();
-	void Update();
+	void RenderFrame(GameState& gameState);
+	void Update(GameState* gameState, int time);
+	void RunFrame(int time);
+	void Idle(int time);
 
-	void AdvanceFrame(int inputs[], int disconnect_flags);
 public:
 	void Go(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int NumberOfSpectators);
 

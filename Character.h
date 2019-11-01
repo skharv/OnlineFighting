@@ -11,11 +11,14 @@ private:
 	spine::SkeletonDrawable* _drawable;
 
 public:
+	int action = 0;
+	sf::Vector2f _position;
+
 	void Draw(sf::RenderWindow* Window);
 	void Update(float Delta);
 
 	Character();
-	Character(const char* jsonFilepath, const char* atlasFilepath);
+	Character(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2f Position = sf::Vector2f(320, 320));
 	~Character();
 };
 

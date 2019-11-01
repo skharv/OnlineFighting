@@ -1,9 +1,2 @@
 ﻿  Character.cpp
-  Engine.cpp
-  GameState.cpp
-  Main.cpp
-D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\Main.cpp(7,1): warning C4005: 'GGPO_MAX_PLAYERS': macro redefinition
-  NonGameState.cpp
-  Generating Code...
-D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\include\ggponet.h(17): message : see previous definition of 'GGPO_MAX_PLAYERS'
   OnlineFighting.vcxproj -> D:\Simon\Documents\GitHub\OnlineFighting\Debug\OnlineFighting.exe

@@ -69,8 +69,8 @@ struct NonGameState
 	PlayerConnectionInfo _players[MAX_PLAYERS];
 	int _numberOfPlayers;
 
-	ChecksumInfo         now;
-	ChecksumInfo         periodic;
+	ChecksumInfo now;
+	ChecksumInfo periodic;
 };
 
 #endif

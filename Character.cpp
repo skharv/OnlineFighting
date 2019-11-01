@@ -7,21 +7,25 @@ void Character::Draw(sf::RenderWindow* Window)
 
 void Character::Update(float Delta)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (action == 1)
 	{
 		_drawable->state->setAnimation(0, "m_rollb_s", false);
 		_drawable->state->addAnimation(0, "m_rollb_a", false, 0);
 		_drawable->state->addAnimation(0, "m_rollb_r", false, 0);
 		_drawable->state->addAnimation(0, "m_stand", true, 0);
+		action = 0;
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (action == 2)
 	{
 		_drawable->state->setAnimation(0, "m_rollf_s", false);
 		_drawable->state->addAnimation(0, "m_rollf_a", false, 0);
 		_drawable->state->addAnimation(0, "m_rollf_r", false, 0);
 		_drawable->state->addAnimation(0, "m_stand", true, 0);
+		action = 0;
 	}
+
+	_drawable->skeleton->setPosition(_position.x, _position.y);
 	_drawable->update(Delta);
 }
 
@@ -34,7 +38,7 @@ Character::Character()
 	//_skeleton = _drawable.skeleton;
 }
 
-Character::Character(const char* jsonFilepath, const char* atlasFilepath)
+Character::Character(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2f Position)
 {
 	spine::SFMLTextureLoader textureLoader;
 	spine::Atlas *atlas = new spine::Atlas(atlasFilepath, &textureLoader);
@@ -53,7 +57,7 @@ Character::Character(const char* jsonFilepath, const char* atlasFilepath)
 	_skeleton = _drawable->skeleton;
 	_skeleton->setToSetupPose();
 
-	_skeleton->setPosition(320, 240);
+	_skeleton->setPosition(Position.x, Position.y);
 	_skeleton->updateWorldTransform();
 
 	_drawable->state->addAnimation(0, "m_stand", true, 0);
