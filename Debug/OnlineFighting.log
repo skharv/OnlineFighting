@@ -1,2 +1,14 @@
-﻿  Character.cpp
+﻿  ActionListReader.cpp
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(198,30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(221,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(230,38): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(50,41): warning C4101: 'e': unreferenced local variable
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(61,41): warning C4101: 'e': unreferenced local variable
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(75,41): warning C4101: 'e': unreferenced local variable
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(148,40): warning C4101: 'e': unreferenced local variable
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(172,40): warning C4101: 'e': unreferenced local variable
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(181,40): warning C4101: 'e': unreferenced local variable
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(200,40): warning C4101: 'e': unreferenced local variable
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(223,40): warning C4101: 'e': unreferenced local variable
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\ActionListReader.cpp(232,40): warning C4101: 'e': unreferenced local variable
   OnlineFighting.vcxproj -> D:\Simon\Documents\GitHub\OnlineFighting\Debug\OnlineFighting.exe

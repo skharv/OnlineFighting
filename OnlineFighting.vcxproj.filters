@@ -30,6 +30,15 @@
     <ClCompile Include="NonGameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionListReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CurrentAction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -42,6 +51,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionListReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CurrentAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

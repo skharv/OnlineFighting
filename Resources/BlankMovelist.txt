@@ -1,0 +1,115 @@
+# [Action NAME]
+# ANIM action name,frame duration, loop
+# COMM numbers are directions (based on the numpad), LK RP LP RP relate to attack buttons
+# VECT x velocity, y velocity
+# HBOX hitbox name, damage
+# INTR interrupt name, startframe, endframe
+# End the action by using an empty line
+
+[Action DashForwards]
+COMM 6, M
+ANIM m_dashf_s, 5, false
+ANIM m_dashf_a, 15, false
+VECT 10, 0
+ANIM m_dashf_r, 15, false
+[End Action]
+
+[Action RollForwards]
+COMM 3, M
+ANIM m_rollf_s, 8, false
+ANIM m_rollf_a, 12, false
+VECT 8, 0
+ANIM m_rollf_r, 8, false
+[End Action]
+
+[Action RollBackwards]
+COMM 1, M
+ANIM m_rollb_s, 9, false
+ANIM m_rollb_a, 9, false
+VECT -7, 0
+ANIM m_rollb_r, 9, false
+[End Action]
+
+[Action DashBackwards]
+COMM 4, M
+ANIM m_dashb_s, 4, false
+ANIM m_dashb_a, 6, false
+VECT -8, 0
+ANIM m_dashb_r, 6, false
+[End Action]
+
+[Action StandKickRight]
+COMM KR
+ANIM a_standkickr_s, 6, false
+ANIM a_standkickr_a, 12, false
+HBOX FRONTSHIN, 10
+ANIM a_standkickr_r, 8, false
+[End Action]
+
+[Action StandKickLeft]
+COMM KL
+ANIM a_standkickl_s, 6, false
+ANIM a_standkickl_a, 12, false
+HBOX FRONTSHIN, 10
+ANIM a_standkickl_r, 8, false
+[End Action]
+
+[Action StandPunchRight]
+COMM PR
+ANIM a_standpunchr_s, 6, false
+ANIM a_standpunchr_a, 12, false
+HBOX FRONTSHIN, 10
+ANIM a_standpunchr_r, 8, false
+[End Action]
+
+[Action StandPunchLeft]
+COMM PL
+ANIM a_standpunchl_s, 6, false
+ANIM a_standpunchl_a, 12, false
+HBOX FRONTSHIN, 10
+ANIM a_standpunchl_r, 8, false
+[End Action]
+
+
+[Action JumpForwards]
+COMM 9, M
+ANIM m_jumpf_s, 5, false
+ANIM m_jumpf_a, 15, false
+VECT 10, 10
+# ANIM m_jumpf_r, 15, false
+[End Action]
+
+[Action JumpNeutral]
+COMM 8, M
+ANIM m_jumpn_s, 5, false
+ANIM m_jumpn_a, 15, false
+VECT 0, 10
+# ANIM m_jumpn_r, 15, false
+[End Action]
+
+[Action JumpBackwards]
+COMM 7, M
+ANIM m_jumpb_s, 5, false
+ANIM m_jumpb_a, 15, false
+VECT -10, 10
+# ANIM m_jumpb_r, 15, false
+[End Action]
+
+[Action WalkForwards]
+COMM 6
+INTR all, 0, 60
+ANIM m_walk_f, 60, true
+VECT 1.5, 0
+[End Action]
+
+[Action WalkBackwards]
+COMM 4
+INTR all, 0, 80
+ANIM m_walk_b, 80, true
+VECT -1, 0
+[End Action]
+
+[Action Stand]
+ANIM m_stand, 60, true
+INTR all, 0, 60
+[End Action]

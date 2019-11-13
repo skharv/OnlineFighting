@@ -3,6 +3,7 @@
 GGPOSession* ggpo = NULL;
 GameState gs = { 0 };
 NonGameState ngs = { 0 };
+sf::Clock deltaClock;
 
 #pragma comment( lib, "winmm.lib") //More sketchy shit.. 
 
@@ -77,7 +78,7 @@ bool __cdecl advance_frame_callback(int flags)
 	// Make sure we fetch new inputs from GGPO and use those to update
 	// the game state instead of reading from the keyboard.
 	ggpo_synchronize_input(ggpo, (void*)inputs, sizeof(int) * MAX_PLAYERS, &disconnect_flags);
-	AdvanceFrame(inputs, disconnect_flags);
+	AdvanceFrame(inputs, disconnect_flags, deltaClock.getElapsedTime().asSeconds());
 	return true;
 }
 
@@ -129,12 +130,18 @@ int ReadInputs(sf::RenderWindow* Window)
 		sf::Keyboard::Key key;
 		int input;
 	}  inputtable[] = {
-	   { sf::Keyboard::W, INPUT_UP },
-	   { sf::Keyboard::S, INPUT_DOWN },
-	   { sf::Keyboard::A, INPUT_LEFT },
-	   { sf::Keyboard::D, INPUT_RIGHT },
-	   { sf::Keyboard::Y, INPUT_MOVE },
-	   { sf::Keyboard::H, INPUT_BLOCK },
+		{ sf::Keyboard::W, INPUT_UP },
+		{ sf::Keyboard::S, INPUT_DOWN },
+		{ sf::Keyboard::A, INPUT_LEFT },
+		{ sf::Keyboard::D, INPUT_RIGHT },
+		{ sf::Keyboard::K, INPUT_MOVE },
+		{ sf::Keyboard::J, INPUT_BLOCK },
+		{ sf::Keyboard::Y, INPUT_LIGHT },
+		{ sf::Keyboard::U, INPUT_MEDIUM },
+		{ sf::Keyboard::I, INPUT_HEAVY },
+		{ sf::Keyboard::H, INPUT_SPECIAL },
+		{ sf::Keyboard::Escape, INPUT_START },
+		{ sf::Keyboard::Tab, INPUT_SELECT },
 	};
 	int i, inputs = 0;
 
@@ -152,9 +159,9 @@ int ReadInputs(sf::RenderWindow* Window)
 	return inputs;
 }
 
-void AdvanceFrame(int inputs[], int disconnect_flags)
+void AdvanceFrame(int inputs[], int disconnect_flags, float time)
 {
-	gs.Update(inputs, disconnect_flags);
+	gs.Update(inputs, disconnect_flags, time);
 
 	// update the checksums to display in the top of the window.  this
 	// helps to detect desyncs.
@@ -189,6 +196,7 @@ bool Engine::Init(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int N
 {
 	GGPOErrorCode result;
 	GGPOSessionCallbacks cb = { 0 };
+	deltaClock.restart();
 
 	gs.Init(NumberOfPlayers);
 	ngs._numberOfPlayers = NumberOfPlayers;
@@ -218,6 +226,7 @@ bool Engine::Init(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int N
 
 		if (Players[i].type == GGPO_PLAYERTYPE_LOCAL)
 		{
+			_window->setPosition(sf::Vector2i(100 + (640 * i) + (100 * i), 100));
 			_characters[i] = new Character("Resources/blank/blank.json", "Resources/blank/blank.atlas", sf::Vector2f((320 * i) + 160, 320));
 			ngs._players[i].connect_progress = 100;
 			ngs._localPlayerHandle = handle;
@@ -240,17 +249,21 @@ void Engine::MainLoop()
 {
 	MSG msg = { 0 };
 	int start, next, now;
+	deltaClock = sf::Clock();
 
 	start = next = now = timeGetTime();
 	while (_window->isOpen())
 	{
 		now = timeGetTime();
 		Idle(std::max(0, next - now - 1)); 
+
 		if (now >= next)
 		{
-			RunFrame(now);
+			RunFrame(deltaClock.getElapsedTime().asSeconds());
 			next = now + (1000 / FRAMERATE);
+			deltaClock.restart();
 		}
+
 	}
 }
 
@@ -260,7 +273,7 @@ void Engine::ProcessInput()
 
 	while (_window->pollEvent(evt))
 	{
-		if (evt.type == sf::Event::Closed)
+		if (evt.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			_window->close();
 	}
 }
@@ -276,15 +289,11 @@ void Engine::RenderFrame(GameState& gameState)
 	_window->display();
 }
 
-void Engine::Update(GameState* gameState, int time)
+void Engine::Update(GameState* gameState, float time)
 {
-	for (int i = 0; i < gameState->_numberOfPlayers; i++)
-	{
-		gameState->_players[i]._character.Update(time);
-	}
 }
 
-void Engine::RunFrame(int time)
+void Engine::RunFrame(float time)
 {
 	GGPOErrorCode result = GGPO_OK;
 	int disconnect_flags;
@@ -295,7 +304,7 @@ void Engine::RunFrame(int time)
 	if (ngs._localPlayerHandle != GGPO_INVALID_HANDLE)
 	{
 		int input = ReadInputs(_window);
-		result = ggpo_add_local_input(ggpo, ngs._localPlayerHandle, &input, sizeof(input)); //This SHOULD return 0
+		result = ggpo_add_local_input(ggpo, ngs._localPlayerHandle, &input, sizeof(input));
 	}
 
 	if (GGPO_SUCCEEDED(result))
@@ -306,11 +315,11 @@ void Engine::RunFrame(int time)
 		{
 			// inputs[0] and inputs[1] contain the inputs for p1 and p2.  Advance
 			// the game by 1 frame using those inputs.
-			AdvanceFrame(inputs, disconnect_flags);
+			AdvanceFrame(inputs, disconnect_flags, time);
 		}
 	}
 
-	Update(&gs, time);
+	//Update(&gs, time);
 
 	RenderFrame(gs);
 }

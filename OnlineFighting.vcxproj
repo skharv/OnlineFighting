@@ -86,6 +86,8 @@
       <AdditionalLibraryDirectories>./lib;</AdditionalLibraryDirectories>
       <ImportLibrary>
       </ImportLibrary>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -141,6 +143,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CurrentAction.cpp" />
+    <ClCompile Include="ActionListReader.cpp" />
+    <ClCompile Include="AnimationHandler.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -148,6 +153,9 @@
     <ClCompile Include="NonGameState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CurrentAction.h" />
+    <ClInclude Include="ActionListReader.h" />
+    <ClInclude Include="AnimationHandler.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameState.h" />

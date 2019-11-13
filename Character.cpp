@@ -1,66 +1,40 @@
 #include "Character.h"
 
-void Character::Draw(sf::RenderWindow* Window)
+void Character::SetPosition(sf::Vector2f Position)
 {
-	Window->draw(*_drawable);
+	_position = Position;
+	_animation->SetPosition(_position);
 }
 
-void Character::Update(float Delta)
+void Character::SetPosition(float x, float y)
 {
-	if (action == 1)
-	{
-		_drawable->state->setAnimation(0, "m_rollb_s", false);
-		_drawable->state->addAnimation(0, "m_rollb_a", false, 0);
-		_drawable->state->addAnimation(0, "m_rollb_r", false, 0);
-		_drawable->state->addAnimation(0, "m_stand", true, 0);
-		action = 0;
-	}
+	_position = sf::Vector2f(x, y);
+	_animation->SetPosition(_position);
+}
 
-	if (action == 2)
-	{
-		_drawable->state->setAnimation(0, "m_rollf_s", false);
-		_drawable->state->addAnimation(0, "m_rollf_a", false, 0);
-		_drawable->state->addAnimation(0, "m_rollf_r", false, 0);
-		_drawable->state->addAnimation(0, "m_stand", true, 0);
-		action = 0;
-	}
+void Character::Draw(sf::RenderWindow* Window)
+{
+	_animation->Draw(Window);
+}
 
-	_drawable->skeleton->setPosition(_position.x, _position.y);
-	_drawable->update(Delta);
+void Character::Update(float Delta, int& Action)
+{
+	_animation->Update(Delta, Action);
 }
 
 Character::Character()
 {
-	//spine::SkeletonData *skeleData = new spine::SkeletonData();
 
-	//spine::AnimationStateData stateData = spine::AnimationStateData(skeleData);
-	//_drawable = spine::SkeletonDrawable(skeleData, &stateData);
-	//_skeleton = _drawable.skeleton;
 }
 
 Character::Character(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2f Position)
 {
-	spine::SFMLTextureLoader textureLoader;
-	spine::Atlas *atlas = new spine::Atlas(atlasFilepath, &textureLoader);
-	spine::SkeletonJson json = spine::SkeletonJson(atlas);
-	spine::SkeletonData* skeleData = json.readSkeletonDataFile(jsonFilepath);
+	_animation = new AnimationHandler(jsonFilepath, atlasFilepath, Position);
+	_reader = ActionListReader();
+	_actions = _reader.ReadList("Resources/BlankMovelist.txt");
 
-	spine::AnimationStateData* stateData = new spine::AnimationStateData(skeleData);
-
-	stateData->setMix("m_walk_b", "m_walk_f", 1.0f);
-	stateData->setMix("m_walk_f", "m_walk_b", 1.0f);
-
-	_drawable = new spine::SkeletonDrawable(skeleData, stateData);
-	_drawable->timeScale = 1;
-	_drawable->setUsePremultipliedAlpha(true);
-
-	_skeleton = _drawable->skeleton;
-	_skeleton->setToSetupPose();
-
-	_skeleton->setPosition(Position.x, Position.y);
-	_skeleton->updateWorldTransform();
-
-	_drawable->state->addAnimation(0, "m_stand", true, 0);
+	_frameNumber = 0;
+	_complete = true;
 }
 
 Character::~Character()
