@@ -1,6 +1,7 @@
 #include "AnimationHandler.h"
+#include <iostream>
 
-void AnimationHandler::SetPosition(sf::Vector2f Position)
+void AnimationHandler::SetPosition(sf::Vector2i Position)
 {
 	_drawable->skeleton->setPosition(Position.x, Position.y);
 }
@@ -63,7 +64,7 @@ AnimationHandler::AnimationHandler()
 {
 }
 
-AnimationHandler::AnimationHandler(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2f Position)
+AnimationHandler::AnimationHandler(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2i Position)
 {
 	spine::SFMLTextureLoader textureLoader;
 	spine::Atlas* atlas = new spine::Atlas(atlasFilepath, &textureLoader);

@@ -1,6 +1,6 @@
 #include "Character.h"
 
-void Character::SetPosition(sf::Vector2f Position)
+void Character::SetPosition(sf::Vector2i Position)
 {
 	_position = Position;
 	_animation->SetPosition(_position);
@@ -8,7 +8,7 @@ void Character::SetPosition(sf::Vector2f Position)
 
 void Character::SetPosition(float x, float y)
 {
-	_position = sf::Vector2f(x, y);
+	_position = sf::Vector2i(x, y);
 	_animation->SetPosition(_position);
 }
 
@@ -27,7 +27,7 @@ Character::Character()
 
 }
 
-Character::Character(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2f Position)
+Character::Character(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2i Position)
 {
 	_animation = new AnimationHandler(jsonFilepath, atlasFilepath, Position);
 	_reader = ActionListReader();

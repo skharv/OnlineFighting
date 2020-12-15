@@ -19,14 +19,15 @@ private:
 	ActionListReader _reader;
 	std::vector<Action> _actions;
 
-	sf::Vector2f _velocity, _position;
+	sf::Vector2f _velocity;
+	sf::Vector2i _position;
 	int _frameNumber;
 	int _action = 0;
 	bool _complete;
 
 public:
 	spine::SkeletonDrawable* GetDrawable() { return _animation->GetDrawable(); };
-	sf::Vector2f GetPosition() { return _animation->GetPosition(); };
+	sf::Vector2i GetPosition() { return _animation->GetPosition(); };
 	sf::Vector2f GetVelocity() { return _velocity; };
 	bool GetComplete() { return _complete; };
 
@@ -35,7 +36,7 @@ public:
 	void SetFrameNumber(int FrameNumber) { _frameNumber = FrameNumber; };
 	void SetAction(int Action) { _action = Action; };
 
-	void SetPosition(sf::Vector2f Position);
+	void SetPosition(sf::Vector2i Position);
 	void SetPosition(float x, float y);
 	void SetVelocity(sf::Vector2f Velocity) { _velocity = Velocity; };
 	void SetVelocity(float x, float y) { _velocity = sf::Vector2f(x, y); };
@@ -44,7 +45,7 @@ public:
 	void Update(float Delta, int& Action);
 
 	Character();
-	Character(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2f Position = sf::Vector2f(320, 320));
+	Character(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2i Position = sf::Vector2i(320, 320));
 	~Character();
 };
 

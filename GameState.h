@@ -26,7 +26,7 @@ enum PlayerInputs
 
 struct Player
 {
-	sf::Vector2f _position;
+	sf::Vector2i _position;
 	sf::Vector2f _velocity;
 	int _action;
 	bool _complete;
@@ -36,9 +36,9 @@ struct Player
 struct GameState
 {
 	void Init(int NumberOfPlayers);
-	void GetPlayerAI(int i, sf::Vector2f& Position, sf::Vector2f& Velocity, bool& Complete);
-	void ParsePlayerInputs(int inputs, int i, sf::Vector2f& Position, sf::Vector2f& Velocity, bool& Complete);
-	void UpdatePlayer(int i, int FrameNumber, float Time, sf::Vector2f Position, sf::Vector2f Velocity, bool Complete);
+	void GetPlayerAI(int i, sf::Vector2i* Position, sf::Vector2f* Velocity, bool* Complete);
+	void ParsePlayerInputs(int inputs, int i, sf::Vector2i* Position, sf::Vector2f* Velocity, bool* Complete);
+	void UpdatePlayer(int i, int FrameNumber, float Time, sf::Vector2i Position, sf::Vector2f Velocity, bool Complete);
 	void Update(int Inputs[], int DisconnectFlags, float time);
 
 	int _framenumber;

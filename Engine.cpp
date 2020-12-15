@@ -210,6 +210,7 @@ bool Engine::Init(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int N
 	cb.log_game_state = log_game_state;
 
 	_window = new sf::RenderWindow(sf::VideoMode(640, 480), "Online Fighting");
+	_window->setVerticalSyncEnabled(true);
 
 	result = ggpo_start_session(&ggpo, &cb, "OnlineFighting", NumberOfPlayers, sizeof(int), LocalPort);
 
@@ -227,7 +228,7 @@ bool Engine::Init(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int N
 		if (Players[i].type == GGPO_PLAYERTYPE_LOCAL)
 		{
 			_window->setPosition(sf::Vector2i(100 + (640 * i) + (100 * i), 100));
-			_characters[i] = new Character("Resources/blank/blank.json", "Resources/blank/blank.atlas", sf::Vector2f((320 * i) + 160, 320));
+			_characters[i] = new Character("Resources/blank/blank.json", "Resources/blank/blank.atlas", sf::Vector2i((320 * i) + 160, 320));
 			ngs._players[i].connect_progress = 100;
 			ngs._localPlayerHandle = handle;
 			ngs.SetConnectState(handle, Connecting);
@@ -236,7 +237,7 @@ bool Engine::Init(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int N
 		else
 		{
 			ngs._players[i].connect_progress = 0;
-			_characters[i] = new Character("Resources/blank/blank.json", "Resources/blank/blank.atlas", sf::Vector2f((320 * i) + 160, 320));
+			_characters[i] = new Character("Resources/blank/blank.json", "Resources/blank/blank.atlas", sf::Vector2i((320 * i) + 160, 320));
 		}
 	}
 
@@ -255,7 +256,7 @@ void Engine::MainLoop()
 	while (_window->isOpen())
 	{
 		now = timeGetTime();
-		Idle(std::max(0, next - now - 1)); 
+		Idle(std::max(0, next - now - 1));
 
 		if (now >= next)
 		{

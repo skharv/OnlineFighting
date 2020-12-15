@@ -19,15 +19,15 @@ public:
 	void Draw(sf::RenderWindow* Window);
 
 	spine::SkeletonDrawable* GetDrawable() { return _drawable; };
-	sf::Vector2f GetPosition() { return sf::Vector2f(_skeleton->getX(), _skeleton->getY()); };
+	sf::Vector2i GetPosition() { return sf::Vector2i(_skeleton->getX(), _skeleton->getY()); };
 
-	void SetPosition(sf::Vector2f Position);
+	void SetPosition(sf::Vector2i Position);
 	void SetPosition(float x, float y);
 
 	spine::Skeleton* GetSkeleton() { return _skeleton; };
 
 	AnimationHandler();
-	AnimationHandler(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2f Position = sf::Vector2f(320, 320));
+	AnimationHandler(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2i Position = sf::Vector2i(320, 320));
 	~AnimationHandler();
 };
 
