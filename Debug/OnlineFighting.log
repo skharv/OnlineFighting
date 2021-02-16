@@ -1,29 +1,21 @@
-﻿  GameState.cpp
-D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\AnimationHandler.h(22,85): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+﻿  Engine.cpp
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\AnimationHandler.h(23,85): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
           with
           [
               T=int
           ]
-D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\AnimationHandler.h(22,66): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\AnimationHandler.h(23,66): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
           with
           [
               T=int
           ]
-D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\GameState.cpp(80,26): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\Engine.cpp(113,16): warning C4477: 'fprintf' : format string '%.4f' requires an argument of type 'double', but variadic argument 2 has type 'T'
           with
-          [
-              T=float
-          ]
-          and
           [
               T=int
           ]
-D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\GameState.cpp(81,26): warning C4244: '+=': conversion from 'T' to 'T', possible loss of data
+D:\Simon\Documents\GitHub\OnlineFighting\OnlineFighting\Engine.cpp(113,16): warning C4477: 'fprintf' : format string '%.4f' requires an argument of type 'double', but variadic argument 3 has type 'T'
           with
-          [
-              T=float
-          ]
-          and
           [
               T=int
           ]

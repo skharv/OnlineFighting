@@ -1,8 +1,8 @@
-#include "ActionListReader.h"
+#include "ActionListLoader.h"
 
-std::vector<Action> ActionListReader::ReadList(std::string Filepath)
+std::vector<Action*> ActionListLoader::ReadList(std::string Filepath)
 {
-	std::vector<Action> Actions;
+	std::vector<Action*> Actions;
 
 	std::ifstream file = std::ifstream(Filepath, std::ifstream::in);
 
@@ -20,7 +20,7 @@ std::vector<Action> ActionListReader::ReadList(std::string Filepath)
 		{
 			if (line == "[End Action]")
 			{
-				Actions.push_back(*newAction);
+				Actions.push_back(newAction);
 				continue;
 			}
 
@@ -28,7 +28,8 @@ std::vector<Action> ActionListReader::ReadList(std::string Filepath)
 
 			int startIndex = line.find(' ') + 1;
 			int endIndex = line.find(']');
-			newAction->name = line.substr(startIndex, endIndex - startIndex);
+			std::string *actionName = new std::string(line.substr(startIndex, endIndex - startIndex));
+			newAction->name = actionName->c_str();
 		}
 
 		if (line.find("COMM", 0) != std::string::npos)
@@ -139,7 +140,8 @@ std::vector<Action> ActionListReader::ReadList(std::string Filepath)
 			int firstComma = line.find(',') + 1;
 			int lastComma = line.find_last_of(',') + 1;
 
-			newInfo.name = line.substr(startIndex, firstComma - (startIndex + 1));
+			std::string* animName = new std::string(line.substr(startIndex, firstComma - (startIndex + 1)));
+			newInfo.name = animName->c_str();
 
 			try
 			{
@@ -191,7 +193,8 @@ std::vector<Action> ActionListReader::ReadList(std::string Filepath)
 
 			Hitbox hitbox = Hitbox();
 
-			hitbox.name = line.substr(startIndex, comma - (startIndex + 1));
+			std::string* hBoxName = new std::string(line.substr(startIndex, comma - (startIndex + 1)));
+			hitbox.name = hBoxName->c_str();
 
 			try
 			{
@@ -214,7 +217,8 @@ std::vector<Action> ActionListReader::ReadList(std::string Filepath)
 
 			Interrupt interruption = Interrupt();
 
-			interruption.name = line.substr(startIndex, firstComma - (startIndex + 1));
+			std::string* interruptName = new std::string(line.substr(startIndex, firstComma - (startIndex + 1)));
+			interruption.name = interruptName->c_str();
 
 			try
 			{
@@ -253,10 +257,10 @@ std::vector<Action> ActionListReader::ReadList(std::string Filepath)
 	return Actions;
 }
 
-ActionListReader::ActionListReader()
+ActionListLoader::ActionListLoader()
 {
 }
 
-ActionListReader::~ActionListReader()
+ActionListLoader::~ActionListLoader()
 {
 }

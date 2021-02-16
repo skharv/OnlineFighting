@@ -3,6 +3,7 @@
 
 #include <spine\spine-sfml.h>
 #include <SFML/Graphics.hpp>
+#include <ActionListLoader.h>
 
 #define REALDEALTA 0.016755
 
@@ -15,7 +16,7 @@ private:
 	bool _flip = false;
 	std::string _animationName;
 public:
-	void Update(float Delta, int& Action);
+	void Update(float Delta, int& CurrentAction);
 	void Draw(sf::RenderWindow* Window);
 
 	spine::SkeletonDrawable* GetDrawable() { return _drawable; };
@@ -23,6 +24,7 @@ public:
 
 	void SetPosition(sf::Vector2i Position);
 	void SetPosition(float x, float y);
+	void SetAnimation(Action NewAction);
 
 	spine::Skeleton* GetSkeleton() { return _skeleton; };
 

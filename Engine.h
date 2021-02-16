@@ -9,6 +9,7 @@
 #include "Character.h"
 #include "NonGameState.h"
 #include "GameState.h"
+#include "Camera.h"
 
 #define FRAME_DELAY 3
 #define FRAMERATE 60
@@ -20,7 +21,9 @@ class Engine
 {
 private:
 	sf::RenderWindow* _window;
+	Camera* _camera;
 	Character* _characters[MAX_PLAYERS];
+	sf::Vertex _floor[2];
 
 	bool Init(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int NumberOfSpectators);
 	void MainLoop();

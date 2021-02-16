@@ -15,83 +15,29 @@ void GameState::Init(int NumberOfPlayers)
 	}
 }
 
-void GameState::GetPlayerAI(int i, sf::Vector2i* Position, sf::Vector2f* Velocity, bool* Complete)
+void GameState::GetPlayerAI(int i, Character* PlayerCharacter)
 {
 	Player* player = _players + i;
 
-	*Position = player->_position;
-	*Velocity = player->_velocity;
-	*Complete = player->_complete;
+	*PlayerCharacter = player->_character;
 }
 
-void GameState::ParsePlayerInputs(int inputs, int i, sf::Vector2i* Position, sf::Vector2f* Velocity, bool* Complete)
+void GameState::ParsePlayerInputs(int inputs, int i, Character* PlayerCharacter)
 {
 	Player* player = _players + i;
 
-	if (inputs & INPUT_RIGHT)
-	{
-		player->_action = 2;
-		*Velocity = V_WALKFORWARD;
-	}
-	else if (inputs & INPUT_LEFT)
-	{
-		player->_action = 3;
-		*Velocity = V_WALKBACK;
-	}
-	else if (inputs & INPUT_LIGHT)
-	{
-		player->_action = 4;
-		*Velocity = V_ROLLFORWARD;
-	}
-	else if (inputs & INPUT_MEDIUM)
-	{
-		player->_action = 5;
-		*Velocity = V_ROLLBACK;
-	}
-	else if (inputs & INPUT_HEAVY)
-	{
-		player->_action = 6;
-	}
-	else
-	{
-		player->_action = 1;
-	}
+	player->_character.HandleInputs(inputs);
 
-	*Position = player->_position;
+	*PlayerCharacter = player->_character;
 }
 
-void GameState::UpdatePlayer(int i, int FrameNumber, float Time, sf::Vector2i Position, sf::Vector2f Velocity, bool Complete)
+void GameState::UpdatePlayer(int i, int FrameNumber, float Time, Character PlayerCharacter)
 {
 	Player* player = _players + i;
-	player->_velocity.y += 1;
 
-	if (player->_action == 0 || player->_action == 1)
-	{
-		if (player->_character.GetDrawable()->state->getCurrent(0)->isComplete() && player->_character.GetDrawable()->state->getCurrent(0)->getNext() == NULL)
-		{
-			player->_action = 0;
-			Velocity = sf::Vector2f(0, 0);
-		}
-	}
+	PlayerCharacter.Update(Time);
 	 
-	player->_character.SetComplete(Complete);
-	player->_character.Update(Time, player->_action);
-
-	Position.x += Velocity.x;
-	Position.y += Velocity.y;
-	player->_position = Position;
-	player->_velocity = Velocity;
-
-	player->_character.SetPosition(player->_position);
-
-	if (i == 0)
-	{
-		std::cout << player->_character.GetPosition().x << " | ";
-	}
-	if (i == 1)
-	{
-		std::cout << player->_character.GetPosition().x << std::endl;
-	}
+	player->_character = PlayerCharacter;
 }
 
 void GameState::Update(int inputs[], int disconnect_flags, float time)
@@ -99,19 +45,18 @@ void GameState::Update(int inputs[], int disconnect_flags, float time)
 	_framenumber++;
 	for (int i = 0; i < _numberOfPlayers; i++)
 	{
-		sf::Vector2i position;
-		sf::Vector2f velocity;
-		bool complete;
+		Player* p = _players + i;
+		Character character = p->_character;
 
 		if (disconnect_flags & (1 << i))
 		{
-			GetPlayerAI(i, &position, &velocity, &complete);
+			GetPlayerAI(i, &character);
 		}
 		else
 		{
-			ParsePlayerInputs(inputs[i], i, &position, &velocity, &complete);
+			ParsePlayerInputs(inputs[i], i, &character);
 		}
 
-		UpdatePlayer(i, _framenumber, time, position, velocity, complete);
+		UpdatePlayer(i, _framenumber, time, character);
 	}
 }

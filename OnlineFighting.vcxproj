@@ -143,8 +143,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CurrentAction.cpp" />
-    <ClCompile Include="ActionListReader.cpp" />
+    <ClCompile Include="ActionListLoader.cpp" />
     <ClCompile Include="AnimationHandler.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -153,8 +154,9 @@
     <ClCompile Include="NonGameState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CurrentAction.h" />
-    <ClInclude Include="ActionListReader.h" />
+    <ClInclude Include="ActionListLoader.h" />
     <ClInclude Include="AnimationHandler.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Engine.h" />

@@ -11,48 +11,24 @@ void AnimationHandler::SetPosition(float x, float y)
 	_drawable->skeleton->setPosition(x, y);
 }
 
-void AnimationHandler::Update(float Delta, int& Action)
+void AnimationHandler::SetAnimation(Action NewAction)
 {
-	switch (Action)
+	for (int i = 0; i < NewAction.animations.size(); i++)
 	{
-	case 0:
-		break;
-	case 1:
-		if (_drawable->state->getCurrent(0)->getAnimation()->getName() != "m_stand")
-			_drawable->state->setAnimation(0, "m_stand", true);
-		break;
-	case 2:
-		if (_drawable->state->getCurrent(0)->getAnimation()->getName() != "m_walk_f")
-			_drawable->state->setAnimation(0, "m_walk_f", true);
-		break;
-	case 3:
-		if (_drawable->state->getCurrent(0)->getAnimation()->getName() != "m_walk_b")
-			_drawable->state->setAnimation(0, "m_walk_b", true);
-		break;
-	case 4:
-		_drawable->state->setAnimation(0, "m_rollf_s", false);
-		_drawable->state->addAnimation(0, "m_rollf_a", false, 0);
-		_drawable->state->addAnimation(0, "m_rollf_r", false, 0);
-		break;
-	case 5:
-		_drawable->state->setAnimation(0, "m_rollb_s", false);
-		_drawable->state->addAnimation(0, "m_rollb_a", false, 0);
-		_drawable->state->addAnimation(0, "m_rollb_r", false, 0);
-		break;
-	case 6:
-		break;
-	case 7:
-		break;
-	default:
-		break;
+		if (i == 0)
+		{
+			_drawable->state->setAnimation(0, NewAction.animations[i].name, false);
+		}
+		else
+		{
+			_drawable->state->addAnimation(0, NewAction.animations[i].name, false, 0);
+		}
 	}
+}
 
+void AnimationHandler::Update(float Delta, int& CurrentAction)
+{
 	_drawable->update(Delta);
-
-	if (_drawable->state->getCurrent(0)->isComplete() && _drawable->state->getCurrent(0)->getNext() == NULL)
-	{
-		Action = 0;
-	}
 }
 
 void AnimationHandler::Draw(sf::RenderWindow* Window)

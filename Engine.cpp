@@ -212,6 +212,10 @@ bool Engine::Init(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int N
 	_window = new sf::RenderWindow(sf::VideoMode(640, 480), "Online Fighting");
 	_window->setVerticalSyncEnabled(true);
 
+	_camera = new Camera(sf::Vector2f(640, 480));
+	_window->setView(_camera->GetCamera());
+	_camera->SetPosition(sf::Vector2f(0, -200));
+
 	result = ggpo_start_session(&ggpo, &cb, "OnlineFighting", NumberOfPlayers, sizeof(int), LocalPort);
 
 	ggpo_set_disconnect_timeout(ggpo, 3000);
@@ -240,6 +244,11 @@ bool Engine::Init(int LocalPort, int NumberOfPlayers, GGPOPlayer* Players, int N
 			_characters[i] = new Character("Resources/blank/blank.json", "Resources/blank/blank.atlas", sf::Vector2i((320 * i) + 160, 320));
 		}
 	}
+
+	_floor[0].position = sf::Vector2f(-1000, 0);
+	_floor[0].color = sf::Color::Red;
+	_floor[1].position = sf::Vector2f(1000, 0);
+	_floor[1].color = sf::Color::Red;
 
 	_window->setTitle("Connecting to peers...");
 
@@ -282,16 +291,31 @@ void Engine::ProcessInput()
 void Engine::RenderFrame(GameState& gameState)
 {
 	_window->clear(sf::Color::Black);
+	_window->draw(_floor, 2, sf::LineStrip);
 
 	for (int i = 0; i < gameState._numberOfPlayers; i++)
 	{
 		gameState._players[i]._character.Draw(_window);
 	}
+
 	_window->display();
 }
 
 void Engine::Update(GameState* gameState, float time)
 {
+	float camPos = 0;
+
+	for (int i = 0; i < gameState->_numberOfPlayers; i++)
+	{
+		Player* p = gameState->_players + i;
+		camPos += p->_character.GetPosition().x;
+
+	}
+
+	camPos /= gameState->_numberOfPlayers;
+
+	_camera->SetPosition(sf::Vector2f(camPos, -200));
+	_camera->Update(*_window);
 }
 
 void Engine::RunFrame(float time)
@@ -320,7 +344,7 @@ void Engine::RunFrame(float time)
 		}
 	}
 
-	//Update(&gs, time);
+	Update(&gs, time);
 
 	RenderFrame(gs);
 }

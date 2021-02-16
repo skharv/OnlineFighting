@@ -1,5 +1,5 @@
-#ifndef _ACTIONLISTREADER_H
-#define _ACTIONLISTREADER_H
+#ifndef _ACTIONLISTLOADER_H
+#define _ACTIONLISTLOADER_H
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -8,14 +8,14 @@
 
 struct Interrupt
 {
-	std::string name;
+	const char* name;
 	int startFrame;
 	int endFrame;
 };
 
 struct Hitbox
 {
-	std::string name;
+	const char* name;
 	int damage;
 };
 
@@ -30,7 +30,7 @@ struct Anim
 		hitboxes = std::vector<Hitbox>();
 	}
 
-	std::string name;
+	const char* name;
 	int frames;
 	bool loop;
 	sf::Vector2f velocity;
@@ -65,7 +65,7 @@ struct Action
 		interruptions = action.interruptions;
 	}
 
-	std::string name;
+	const char* name;
 	bool complete;
 	int currentFrame;
 	int currentAnimation;
@@ -76,16 +76,13 @@ struct Action
 	std::vector<Interrupt> interruptions;
 };
 
-class ActionListReader
+class ActionListLoader
 {
-private:
-	std::vector<Action> _actions;
-
 public:
-	std::vector<Action> ReadList(std::string Filepath);
+	std::vector<Action*> ReadList(std::string Filepath);
 
-	ActionListReader();
-	~ActionListReader();
+	ActionListLoader();
+	~ActionListLoader();
 };
 
 #endif

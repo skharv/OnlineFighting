@@ -33,10 +33,13 @@
     <ClCompile Include="AnimationHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ActionListReader.cpp">
+    <ClCompile Include="CurrentAction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CurrentAction.cpp">
+    <ClCompile Include="ActionListLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,10 +59,13 @@
     <ClInclude Include="AnimationHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ActionListReader.h">
+    <ClInclude Include="CurrentAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CurrentAction.h">
+    <ClInclude Include="ActionListLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

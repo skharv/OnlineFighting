@@ -4,7 +4,7 @@
 #include <spine/spine-sfml.h>
 #include <SFML/Graphics.hpp>
 #include "AnimationHandler.h"
-#include "ActionListReader.h"
+#include "ActionListLoader.h"
 
 //These will be read in from a text file.
 #define V_WALKFORWARD sf::Vector2f(1, 0)
@@ -12,12 +12,39 @@
 #define V_ROLLFORWARD sf::Vector2f(8, 0)
 #define V_ROLLBACK sf::Vector2f(-6, 0)
 
+enum Inputs
+{
+	INPUT_UP = (1 << 0),
+	INPUT_DOWN = (1 << 1),
+	INPUT_LEFT = (1 << 2),
+	INPUT_RIGHT = (1 << 3),
+	INPUT_MOVE = (1 << 4),
+	INPUT_BLOCK = (1 << 5),
+	INPUT_LIGHT = (1 << 6),
+	INPUT_MEDIUM = (1 << 7),
+	INPUT_HEAVY = (1 << 8),
+	INPUT_SPECIAL = (1 << 9),
+	INPUT_START = (1 << 10),
+	INPUT_SELECT = (1 << 11)
+};
+
+enum State
+{
+	STATE_IDLE = (1 << 0),
+	STATE_JUMPING = (1 << 1),
+	STATE_HIT = (1 << 2),
+	STATE_ACTING = (1 << 3),
+	STATE_KNOCKDOWN = (1 << 4),
+	STATE_AIRHIT = (1 << 5),
+	STATE_AIRACTING = (1 << 6),
+};
+
 class Character
 {
 private:
 	AnimationHandler* _animation;
-	ActionListReader _reader;
-	std::vector<Action> _actions;
+	ActionListLoader _reader;
+	std::vector<Action*> _actions;
 
 	sf::Vector2f _velocity;
 	sf::Vector2i _position;
@@ -41,8 +68,9 @@ public:
 	void SetVelocity(sf::Vector2f Velocity) { _velocity = Velocity; };
 	void SetVelocity(float x, float y) { _velocity = sf::Vector2f(x, y); };
 
+	void HandleInputs(int inputs);
 	void Draw(sf::RenderWindow* Window);
-	void Update(float Delta, int& Action);
+	void Update(float Delta);
 
 	Character();
 	Character(const char* jsonFilepath, const char* atlasFilepath, sf::Vector2i Position = sf::Vector2i(320, 320));
